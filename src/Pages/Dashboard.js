@@ -35,15 +35,15 @@ const Container = styled.div`
                 }
             }
             .profile{
-                border-bottom: 1px solid;
-                height: 8.2vh;
+                border: 1px solid;
+                height: 8.1vh;
                 display: flex;
                 align-items: center;
                 justify-content: end;
                 padding-inline-end: 20px;
                 position: fixed;
-                width: 82%;
-                left: 18%;
+                width: 81%;
+                left: 18.1%;
                 background-color: #F8F9FA;
                 z-index: 100;
             }
@@ -52,7 +52,7 @@ const Container = styled.div`
                     background-color: #F8F9FA;
                     height: auto;
                     margin-left: 17vw;
-                    width: 83%;
+                    width: 82.8%;
                     top: 8.2vh;
                     position: relative;
                     
