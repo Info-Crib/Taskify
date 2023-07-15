@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import iconn from "../Images/icon.png";
 import {Link} from "react-router-dom";
-
 const Container = styled.div`
             position: fixed;
             z-index: 100;
@@ -206,7 +205,7 @@ const Header = () => {
     return (  
         <Container>
             <div className="general">
-
+                
              <div className="header">
               <div className="logo">
               <Link to="/"><img src={iconn} /> <h3>Pro Manager</h3></Link>   
