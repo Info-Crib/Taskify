@@ -62,13 +62,13 @@ const Container = styled.div`
       }
     }
 
-         section{
-          padding-inline: 40px;
+         .sectio{
+          padding-inline: 20px;
           .navbarmin{
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 10px;
+            margin-top: 25px;
             span{
               font-size: 25px;
                font-weight: bolder;
@@ -116,7 +116,7 @@ const Project = () => {
         <div className="container">
 
            <div className="content">
-            <section>
+            <section className="sectio">
             <div className="navbarmin">
               <span>
               Project
