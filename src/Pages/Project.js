@@ -5,6 +5,7 @@ import Home from "../Pages/Home"
 import {FaAngleDoubleRight} from "react-icons/fa";
 import Mainfooter from "../Components/Mainfooter";
 import Listproject from "../Asset/Listproject";
+import { Usebg } from "../Asset/Usebg";
 const Container = styled.div`
 .general{
     display: grid;
@@ -90,6 +91,7 @@ const Container = styled.div`
                 font-weight: bold;
                 cursor: pointer;
                 color: black;
+
                 &:hover{
                color: #ff8a00;
                 }
@@ -106,11 +108,13 @@ const Container = styled.div`
 `
 
 const Project = () => {
+  const {bg, HandelTgoggle} = Usebg()
     return ( 
         <Container>
        <Navbarmain />
-       <div className="general">
-      
+       <div className="general" style={{
+        backgroundColor: bg
+       }}>
          
         <div className="sidebar">
      <Sidebar />
@@ -124,7 +128,7 @@ const Project = () => {
               Project
               </span>
               <div className="sec">
-                <p>Dahboard</p>
+                <p onClick={HandelTgoggle}>Dashboard</p>
                 <div className="icon">
                   <FaAngleDoubleRight />
                 </div>
@@ -137,7 +141,7 @@ const Project = () => {
             </section>
            </div>
             <footer>
-            <Mainfooter />
+            <Mainfooter /> 
         </footer>
         </div>
        
