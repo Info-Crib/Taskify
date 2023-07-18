@@ -205,7 +205,7 @@ const Profile = () => {
               <div className="icon">
                 <FaAngleDoubleRight />
               </div>
-              <p>Projects</p>
+              <p>Profile</p>
             </div>
           </div>
           <div className="span">
