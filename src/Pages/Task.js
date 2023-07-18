@@ -1,26 +1,32 @@
-import Navbarmain from "../Components/Navbarmain";
-import Sidebar from "../Components/SideBar";
 import styled from "styled-components";
+
+import Sidebar from "../Components/SideBar"
+import Navbarmain from "../Components/Navbarmain"
+
 import { FaAngleDoubleRight } from "react-icons/fa";
 
 const Container = styled.div`
-  .boddy {
-    height: auto;
-    /* width: auto; */
-    background-color: blue;
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    overflow: hidden;
-    .b {
-      background-color: #F8F9FA;
-      padding: 10px;
-      overflow: scroll;
-      font-weight: 400;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+    .general{
+        display: grid;
+        grid-template-columns: 1fr 5fr;
 
-      .navbarmin {
+        .main{
+  
+         .container{
+            height: calc(100vh - 100px);
+            width: auto;
+            display: flex;
+            padding-inline: 20px;
+         flex-direction: column;
+         overflow: overlay;
+       
+        ::-webkit-scrollbar {
+           width: 5px;
+          
+     
+
+         }
+         .navbarmin {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -52,37 +58,55 @@ const Container = styled.div`
           }
         }
       }
+         .b{
+      background-color: #F8F9FA;
+      padding: 10px;
+      width: auto;
+      font-weight: 400;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+    
 
       .taskgen {
         width: auto;
-        height: 80%;
+        height: 100%;
+        
         background-color: red;
-        overflow-y: hidden;
-        overflow-x: scroll;
+       
         padding: 20px;
         display: flex;
+        justify-content: center;
         flex-direction: row;
         gap: 20px;
 
         span {
+           overflow-y: hidden;
+        overflow-x: auto;
           padding: 20px;
           background-color: blue;
-          height: 600px;
-          width: 300px;
+          height: 700px;
+          width: 200px;
         }
       }
-    }
-  }
-`;
+          }
+         }
+            }
+        }
+   
+`
+
+
 
 const Task = () => {
-  return (
-    <Container>
-      <Navbarmain></Navbarmain>
-
-      <div className="boddy">
-        <Sidebar />
-        <div className="b">
+    return ( 
+        <Container>
+            <Navbarmain></Navbarmain>
+        <div className="general">
+            <Sidebar></Sidebar>
+            <div className="main">
+                <div className="container">
           <div className="navbarmin">
             <span>Profile</span>
             <div className="sec">
@@ -93,16 +117,24 @@ const Task = () => {
               <p>Profile</p>
             </div>
           </div>
+                <div className="b">
           <div className="taskgen">
             <span>ggg</span>
             <span>jjj</span >
             <span>jjj</span>
             <span>jj</span>
+            <span>jj</span>
+            <span>jj</span>
+            <span>jj</span>
+            <span>jj</span>
           </div>
         </div>
-      </div>
-    </Container>
-  );
-};
-
+                </div>
+        </div>
+        </div>
+        </Container>
+     );
+        
+}
+ 
 export default Task;

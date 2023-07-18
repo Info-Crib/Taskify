@@ -9,7 +9,7 @@ const Container = styled.div`
   background-color: #fff1e4;
   top: 11.1vh;
     background-color: #fff1e4;
-  height: calc(100vh - 11vh);
+  height: calc(100vh - 11.6vh);
   width: calc(100vw - 78.9vw);
   border-right: 1px solid #d8e1ef;
   .general {
