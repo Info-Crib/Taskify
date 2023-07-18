@@ -9,7 +9,7 @@ const Container = styled.div`
   z-index: 100;
         top: 10;
        nav{
-      background-color: #fff;
+      background-color: #F8F9FA;
         width: 99.9%;
         height: 12vh;
         border-bottom: 1px solid #d8e1ef;
