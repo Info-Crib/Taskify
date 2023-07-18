@@ -4,8 +4,7 @@ import styled from "styled-components";
 import Intro from "../../Components/Intro";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import React, { lazy, Suspense } from "react";
-
+import { auth } from "../../Config/firebase";
 
 const Container = styled.div`
  position: relative;
@@ -714,29 +713,25 @@ const Container = styled.div`
  }
  }
 `
-// const LazyHeader = lazy(() => import("./Register"));
-// const Test = () => {
-//     return (
-//       <div>
-//         <Suspense fallback={<div>Loading...</div>}>
-//           <LazyHeader />
-//         </Suspense>
-//       </div>
-//     );
-//   };
+
 
 
 
 const Register = () => {
-    const [email, setEmail] = useState('');
     const [isValid, setIsValid] = useState(false);
-  
     const handleEmailChange = (e) => {
       const inputEmail = e.target.value;
       setEmail(inputEmail);
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       setIsValid(emailRegex.test(inputEmail));
     };
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const signIn = () =>{
+
+    }
   
     return (
         <Container>
@@ -767,7 +762,10 @@ const Register = () => {
                     id="email"
                     placeholder="Enter Email"
                     value={email}
-                    onChange={handleEmailChange}
+                    onChange={()=>{
+                      handleEmailChange()
+                      
+                    }}
                     required
                     noValidate
                   />

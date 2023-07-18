@@ -4,16 +4,17 @@ import styled from "styled-components";
 import { FaAngleDoubleRight } from "react-icons/fa";
 
 const Container = styled.div`
+overflow: hidden;
   .boddy {
     height: auto;
     /* width: auto; */
-    background-color: blue;
+    /* background-color: blue; */
     display: grid;
     grid-template-columns: 1fr 4fr;
-    overflow: hidden;
+    overflow: auto;
     .b {
-      background-color: #F8F9FA;
-      padding: 10px;
+      background-color: #fff;
+      padding: 20px;
       overflow: scroll;
       font-weight: 400;
       display: flex;
@@ -55,7 +56,7 @@ const Container = styled.div`
 
       .taskgen {
         width: auto;
-        height: 80%;
+        height: 100vh;
         background-color: red;
         overflow-y: hidden;
         overflow-x: scroll;
@@ -64,11 +65,9 @@ const Container = styled.div`
         flex-direction: row;
         gap: 20px;
 
-        span {
+        h1 {
           padding: 20px;
           background-color: blue;
-          height: 600px;
-          width: 300px;
         }
       }
     }
@@ -94,10 +93,15 @@ const Task = () => {
             </div>
           </div>
           <div className="taskgen">
-            <span>ggg</span>
-            <span>jjj</span >
-            <span>jjj</span>
-            <span>jj</span>
+            <h1>Hello</h1>
+            <h1>Hello</h1>
+            <h1>Hello</h1>
+            <h1>Hello</h1>
+            <h1>Hello</h1>
+            <h1>Hello</h1>
+            <h1>Hello</h1>
+            <h1>Hello</h1>
+            <h1>Hello</h1>
           </div>
         </div>
       </div>
