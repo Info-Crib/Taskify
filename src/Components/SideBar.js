@@ -7,9 +7,9 @@ import { FaCog } from "react-icons/fa";
 const Container = styled.div`
   position: sticky;
   background-color: #fff1e4;
-  top: 57.9px;
+  top: 11.1vh;
     background-color: #fff1e4;
-  height: calc(100vh - 12.5vh);
+  height: calc(100vh - 11vh);
   width: calc(100vw - 78.9vw);
   border-right: 1px solid #d8e1ef;
   .general {

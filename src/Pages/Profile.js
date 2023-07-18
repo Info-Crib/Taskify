@@ -4,6 +4,7 @@ import Navbarmain from "../Components/Navbarmain";
 import { FaAngleDoubleRight } from "react-icons/fa";
 
 const Container = styled.div`
+  
   .gen {
     display: grid;
     grid-template-columns: 1fr 5fr;

@@ -7,11 +7,11 @@ import {BiSolidDownArrow} from "react-icons/bi"
 const Container = styled.div`
   position: sticky;
   z-index: 100;
-        top: 10;
+        top: 0;
        nav{
       background-color: #F8F9FA;
         width: 99.9%;
-        height: 12vh;
+        height: 11vh;
         border-bottom: 1px solid #d8e1ef;
        
         .content{
@@ -26,18 +26,7 @@ const Container = styled.div`
               height: 50%;
               position: relative;
             }
-            &::after{
-              content: "";
-              position: absolute;
-              margin-left: 20px;
-              top: 1px;
-              bottom: 0px;
-              left: 250px;
-              right: 0px;
-               background-color: #ccc;
-              height: 71px;
-              width: 0.5px;
-            }
+          
           }
           .icons{
             ul{
