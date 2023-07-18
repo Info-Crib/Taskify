@@ -1,4 +1,4 @@
 {
     "tabnine.receiveBetaChannelUpdates": true,
-    "tabnine.useProxySupport": false
+    "tabnine.useProxySupport": true
 }

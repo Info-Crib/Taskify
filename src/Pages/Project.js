@@ -12,6 +12,7 @@ const Container = styled.div`
     grid-template-columns: 1fr 5fr;
 
     .sidebar{
+      /* background-color: #FFF1E4; */
 
     }
     .container{
@@ -70,6 +71,7 @@ const Container = styled.div`
             justify-content: space-between;
             align-items: center;
             margin-top: 25px;
+        
             span{
               font-size: 25px;
                font-weight: bolder;
@@ -84,7 +86,6 @@ const Container = styled.div`
               background-color: white;
               padding-inline: 20px;
               border-radius: 10px;
-           
               p{
                 font-size: 14px;
                 font-weight: bold;
@@ -136,6 +137,7 @@ const Project = () => {
             </div>
 
          <Listproject />
+
             </section>
            </div>
             <footer>

@@ -1,170 +1,187 @@
 import styled from "styled-components";
-
+import { GrProjects } from "react-icons/gr";
+import Logo from "../Images/icon.png"
+import {IoMdSettings} from "react-icons/io"
+import {LiaProjectDiagramSolid} from "react-icons/lia"
+import Sidebar from "../Components/SideBar"
+import Navbarmain from "../Components/Navbarmain"
+import Mainfooter from "../Components/Mainfooter";
 
 const Container = styled.div`
-
     .general{
+        display: grid;
+        grid-template-columns: 1fr 5fr;
+
         .main{
-            display: grid;
-            grid-template-columns: 2fr;
-            grid-template-rows: auto;
-            height: 100vh;
-            position: relative;
+  
+         .container{
+            height: calc(100vh - 90px);
             
-            .sidebar{
-                border: 1px solid;
-                height: 100%;
-                background-color: #FFF1E4;
-                font-size: 16px;
-                position: fixed;
-                width: 18%;
-                z-index: 100;
-                .h2{
-                    margin-inline-start: 40px;
-                    margin-block-start: 40px;
+            display: flex;
+         flex-direction: column;
+         overflow: overlay;
+       
+               ::-webkit-scrollbar {
+           width: 5px;
+          
+     
+         }
+             .span {
+                     /* border: 1px solid red; */
+                     padding: 20px;
+                     display: flex;
+                     flex-direction: column;
+                     gap: 30px;
+                     margin: 10px;
+                 }
+ 
+                 .projects {
+                     height: 6.5vw;
+                     background-color: blue;
+                     border: none;
+                     border-radius: 10px;
+                     width: 16vw;
+                     display: flex;
+                     align-items: center;
+                     
+                     div {
+                         color: #FF8A00;
+                         margin: 10px;
+                         border: 1px solid;
+                         height: 55px;
+                         width: 55px;
+                         border-radius: 50%;
+                         background-color: white;
+                         display: flex;
+                         font-size: 30px;
+                         align-items: center;
+                         border: none;
+                         justify-content: center;
+ 
+                         
+                     }
+                     
+                     span{
+                             font-size: 25px;
+                             font-weight: 600;
+                         }
+                 }
+         
+         .contents {
+                     border: none;
+                     display: flex;
+                     margin: 30px;
+                     flex-direction: column;
+                     gap: 30px;
+                     height: auto;
+                     padding: 20px;
+                     padding-block: 30px;
+                     font-size: 20px;
+                     /* font-weight: 600; */
+                     border-radius: 10px;
+                     box-shadow: -1px 0px 6px 1px rgba(117,117,117,0.75);
+                     -webkit-box-shadow: -1px 0px 6px 1px rgba(117,117,117,0.75);
+                     -moz-box-shadow: -1px 0px 6px 1px rgba(117,117,117,0.75);
+ 
+                     span{
+                         padding-inline: 10px;
+                     }
+                     div{
+                         display: flex;
+                         align-items: center;
+                         justify-content: space-between;
+                         border-radius: 10px;
+                         padding-inline: 10px;
+                         padding-block: 13px;
+                         height: 4.2vw;
+                         border: 1px solid #D5E0F1;
+                         font-size: 10px;
+                         letter-spacing: 1px;
+ 
+                         button {
+                             height: 55px;
+                             width: 150px;
+                             margin: 10px;
+                             background-color: #001935;
+                             border-radius: 10px;
+                             color: white;
+                             border: none;
+                         }
 
-                }
-
-                .logo{
-                    border-bottom: 1px solid;
-                    height: 8%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    background-color: #F8F9FA;
-                }
+                         button:hover{
+                            background-color: #FF8A00;
+                            cursor: pointer;
+                         }
+                         span{
+ 
+                         }
+                     }
+                 }
+         }
             }
-            .profile{
-                border: 1px solid;
-                height: 8.1vh;
-                display: flex;
-                align-items: center;
-                justify-content: end;
-                padding-inline-end: 20px;
-                position: fixed;
-                width: 81%;
-                left: 18.1%;
-                background-color: #F8F9FA;
-                z-index: 100;
-            }
-                
-            .major{
-                    background-color: #F8F9FA;
-                    height: auto;
-                    margin-left: 17vw;
-                    width: 82.8%;
-                    top: 8.2vh;
-                    position: relative;
-                    
-                    .span{
-                        border: 1px solid red;
-                        padding: 20px;
-                        display: flex;
-                        flex-direction: column;
-                        gap: 10px;
-                        margin: 10px;
-
-                    }
-
-                .projects{
-                    height: 6.5vw;
-                    background-color: blue;
-                    border: 1px solid;
-                    border-radius: 10px;
-                    width: 16vw;
-                    display: flex;
-                    align-items: center;
-
-                    div{
-                        margin: 10px;
-                        border: 1px solid;
-                        height: 70px;
-                        width: 70px;
-                        border-radius:50%;
-                        background-color: white;
-                    }
-                }
-
-                .contents{
-                    border: 1px solid;
-                    display: flex;
-                    flex-direction: column;
-                    gap: 20px;
-                    height: auto;
-
-                    div{
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                        border-radius: 10px;
-                        padding-inline: 10px;
-                        height: 4.5vw;
-                        border: 1px solid green;
-                    }
-                }
-            }
-        
         }
-
-
-    }
+   
 `
+
 
 
 const Dashboard = () => {
     return ( 
         <Container>
+            <Navbarmain></Navbarmain>
         <div className="general">
+            <Sidebar></Sidebar>
             <div className="main">
-                <div className="sidebar">
-                    <div className="logo">logo here</div>
-                    <div className="h2">
-                        <h3>Dashboard</h3>
-                        <h3>Projects</h3>
-                        <h3>Settings</h3>
-                    </div>
+                <div className="container">
                     
-                </div>
-                    <div className="profile">profile here</div>
-                <div className="major">
-                    <div className="span">
-                      <h1>Welcome, Tom Hanks</h1>  
+                <div className="span">
+                     <h1>Welcome, Tom Hanks</h1>  
                     <div className="projects">
+
                         <div>
-
+                        <LiaProjectDiagramSolid></LiaProjectDiagramSolid>
                         </div>
+                        <span>
+                            12 Projects
+                        </span>
                     </div>
-
-                    <div className="contents">
+             </div>
+            <div className="contents">
+                
+            <span>
+                        Projects
+                        </span>
                         <div>
                             <h2>Personal project</h2>
                             <span>
-                            <button></button>
-                            <button></button>
+                            <button>
+                                Message Board
+                            </button>
+                            {/* <button></button> */}
                             </span>
                         </div>
 
                         <div>
                             <h2>Work and School</h2>
                             <span>
-                            <button></button>
-                            <button></button>
+                            <button>
+                                Message Board
+                            </button>
+                            {/* <button></button> */}
                             </span>
                         </div>
 
                         <div>
                             <h2>Research</h2>
                             <span>
-                            <button></button>
-                            <button></button>
+                            <button> Message Board</button>
+                            {/* <button></button> */}
                             </span>
                         </div>
                         
-                        
-                    </div>
-                </div>
-                </div>
             </div>
+                </div>
+        </div>
         </div>
         </Container>
      );

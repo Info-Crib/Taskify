@@ -5,6 +5,7 @@ import Register from "./Pages/Register";
 import About from "./Pages/About";
 import Project from "./Pages/Project";
 import Dashboard from "./Pages/Dashboard";
+import Profile from "./Pages/Profile";
 const App = () => {
   return ( 
     <>
@@ -16,6 +17,7 @@ const App = () => {
           <Route path= "/about" element={ <About />} />
           <Route path= "/dashboard" element={ <Dashboard />} />
           <Route path= "/Project" element={ <Project />} />
+          <Route path= "/Profile" element={ <Profile />} />
 
         </Routes>
       </Router>
