@@ -108,13 +108,24 @@ const Container = styled.div`
                              border: none;
                          }
 
+
                          button:hover{
                             background-color: #FF8A00;
                             cursor: pointer;
                          }
-                         span{
- 
+
+                         #two{
+                            height: 55px;
+                            width: 100px;
+                            background-color: #FF8A00;
+
+                            &:hover{
+                                background-color: #001935;
+                            cursor: pointer;
+                            }
                          }
+
+
                      }
                  }
          }
@@ -157,7 +168,7 @@ const Dashboard = () => {
                             <button>
                                 Message Board
                             </button>
-                            {/* <button></button> */}
+                            <button id="two">Tasks</button>
                             </span>
                         </div>
 
@@ -167,7 +178,7 @@ const Dashboard = () => {
                             <button>
                                 Message Board
                             </button>
-                            {/* <button></button> */}
+                            <button id="two">Tasks</button>
                             </span>
                         </div>
 
@@ -175,7 +186,7 @@ const Dashboard = () => {
                             <h2>Research</h2>
                             <span>
                             <button> Message Board</button>
-                            {/* <button></button> */}
+                            <button id="two">Tasks</button>
                             </span>
                         </div>
                         
