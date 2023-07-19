@@ -3,8 +3,13 @@ import Footer from "../../Components/Footer";
 import styled from "styled-components";
 import Intro from "../../Components/Intro";
 import { Link } from "react-router-dom";
+import {FcGoogle} from "react-icons/fc"
 import { useState } from "react";
-import { auth } from "../../Config/firebase";
+import { useNavigate } from "react-router-dom";
+import { auth, googleProvider } from "../../Config/firebase";
+import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import toast, { Toaster } from 'react-hot-toast';
+
 
 const Container = styled.div`
  position: relative;
@@ -45,7 +50,7 @@ const Container = styled.div`
         border: 1px solid ;
         border-color: #F1F1F1;
         border-radius: 30px;
-        height: 85vh;
+        height: 100vh;
         width: 75vh;
         top: 40vh;
         position: absolute;
@@ -176,7 +181,7 @@ const Container = styled.div`
     }
   .sec2 {
     background-color: #f8f9fa;
-    height: 60vh;
+    height: 75vh;
   }
 
  }
@@ -718,7 +723,9 @@ const Container = styled.div`
 
 
 const Register = () => {
+  const Navigate = useNavigate();
     const [isValid, setIsValid] = useState(false);
+    const [Error, setError] = useState("");
     const handleEmailChange = (e) => {
       const inputEmail = e.target.value;
       setEmail(inputEmail);
@@ -729,10 +736,32 @@ const Register = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const signIn = () =>{
+    console.log(auth?.currentUser?.email);
 
-    }
+    const signIn = async (e) =>{
+      e.preventDefault()
+      toast.loading('Waiting...');
+        try {
+          await createUserWithEmailAndPassword(auth, email, password);
+          toast.success('Successfully created!');
+          Navigate("/dashboard");
+
+        } catch (error) {
+          // alert("error");
+          toast.error('This is an error!');
+        }
+    };
+
+    const signInWithGoogle = async () => {
+        try {
+          await signInWithPopup(auth, googleProvider);
+          Navigate("/dashboard");
+        } catch (error) {
+          alert('error')
+        }
+    };
   
+
     return (
         <Container>
         <Header></Header>
@@ -747,6 +776,14 @@ const Register = () => {
               <b>Create your account</b>
             </h3>
             <div className="dialogue">
+            <button
+              onClick={signInWithGoogle}
+            > <FcGoogle style={
+            {
+              fontSize: "30px"
+            }
+          }></FcGoogle>Continue With Google</button>
+              <h4><hr />or <hr /></h4>
               <form action="submit">
                 <span className="line">
                   <h4>Name *</h4>
@@ -762,9 +799,9 @@ const Register = () => {
                     id="email"
                     placeholder="Enter Email"
                     value={email}
-                    onChange={()=>{
-                      handleEmailChange()
-                      
+                    onChange={(e)=>{
+                      setEmail(e.target.value) ;
+
                     }}
                     required
                     noValidate
@@ -778,16 +815,24 @@ const Register = () => {
                   <span className="line">
                     <h4>Password  *</h4>
                     <label htmlFor="pass"></label>
-                    <input type="password" id="pass" placeholder="Enter Password" required/>
+                    <input 
+                    type="password" 
+                    id="pass" 
+                    placeholder="Enter Password" 
+                    required
+                    onChange={(e)=>{
+                      setPassword(e.target.value)
+                    }}
+                    />
                   </span>
 
                 <span className="line">
                     <h4>Company Name  *</h4>
                     <label htmlFor="email"></label>
-                    <input type="text" id="email" placeholder="Enter Company" required/>   
+                    <input type="text" id="text" placeholder="Enter Company" required/>   
                   </span>
-                <span className="submit">
-                  <button className="submit">Submit</button>
+                <span className="submit" onClick={signIn}>
+                  <button className="submit" on>Submit</button>
   
                  <h4>Already Have an Account? <Link to="/login">
                  <b>Sign In</b>

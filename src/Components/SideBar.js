@@ -4,6 +4,7 @@ import { FaColumns } from "react-icons/fa";
 import { FaProjectDiagram } from "react-icons/fa";
 import { FaEnvelope } from "react-icons/fa";
 import { FaCog } from "react-icons/fa";
+import { Link } from "react-router-dom";
 const Container = styled.div`
   position: sticky;
   background-color: #fff1e4;
@@ -22,9 +23,10 @@ const Container = styled.div`
       display: flex;
       flex-direction: column;
       gap: 30px;
-      li{
+     a> li{
         list-style: none;
       }
+     a{
       li:nth-child(1){
        display: flex;
        align-items: center;
@@ -39,6 +41,10 @@ const Container = styled.div`
         }
 
       }
+
+
+     } 
+     a{
       li:nth-child(2){
         display: flex;
        align-items: center;
@@ -52,6 +58,8 @@ const Container = styled.div`
           font-weight: bold;
         }
       }
+
+     }
       li:nth-child(3){
         display: flex;
        align-items: center;
@@ -88,12 +96,19 @@ const Sidebar = () => {
     <Container>
       <div className="general">
         <ul>
+          <Link to="/dashboard" >
+          
           <li>
             <FaColumns />
           </li>
+          </Link>
+
+          <Link to="/project">
+          
           <li>
             <FaProjectDiagram />
           </li>
+          </Link>
           <li>
             <FaEnvelope />
           </li>

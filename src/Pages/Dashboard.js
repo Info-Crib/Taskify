@@ -37,7 +37,7 @@ const Container = styled.div`
  
                  .projects {
                      height: 6.5vw;
-                     background-color: blue;
+                     background-color: #FFF1E4;
                      border: none;
                      border-radius: 10px;
                      width: 16vw;
