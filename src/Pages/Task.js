@@ -1,20 +1,17 @@
-import Navbarmain from "../Components/Navbarmain";
-import Sidebar from "../Components/SideBar";
 import styled from "styled-components";
 import { FaAngleDoubleRight } from "react-icons/fa";
 
 const Container = styled.div`
-overflow: hidden;
   .boddy {
     height: auto;
     /* width: auto; */
-    /* background-color: blue; */
+    background-color: blue;
     display: grid;
     grid-template-columns: 1fr 4fr;
-    overflow: auto;
+    overflow: hidden;
     .b {
-      background-color: #fff;
-      padding: 20px;
+      background-color: #F8F9FA;
+      padding: 10px;
       overflow: scroll;
       font-weight: 400;
       display: flex;
@@ -53,35 +50,52 @@ overflow: hidden;
           }
         }
       }
+         .b{
+      background-color: #F8F9FA;
+      padding: 10px;
+      width: auto;
+      font-weight: 400;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+    
 
       .taskgen {
         width: auto;
-        height: 100vh;
+        height: 80%;
         background-color: red;
-        overflow-y: hidden;
-        overflow-x: scroll;
+       
         padding: 20px;
         display: flex;
+        justify-content: center;
         flex-direction: row;
         gap: 20px;
 
-        h1 {
+        span {
           padding: 20px;
           background-color: blue;
+          height: 600px;
+          width: 300px;
         }
       }
-    }
-  }
-`;
+          }
+         }
+            }
+        }
+   
+`
+
+
 
 const Task = () => {
-  return (
-    <Container>
-      <Navbarmain></Navbarmain>
-
-      <div className="boddy">
-        <Sidebar />
-        <div className="b">
+    return ( 
+        <Container>
+            <Navbarmain></Navbarmain>
+        <div className="general">
+            <Sidebar></Sidebar>
+            <div className="main">
+                <div className="container">
           <div className="navbarmin">
             <span>Profile</span>
             <div className="sec">
@@ -92,21 +106,18 @@ const Task = () => {
               <p>Profile</p>
             </div>
           </div>
+                <div className="b">
           <div className="taskgen">
-            <h1>Hello</h1>
-            <h1>Hello</h1>
-            <h1>Hello</h1>
-            <h1>Hello</h1>
-            <h1>Hello</h1>
-            <h1>Hello</h1>
-            <h1>Hello</h1>
-            <h1>Hello</h1>
-            <h1>Hello</h1>
+            <span>ggg</span>
+            <span>jjj</span >
+            <span>jjj</span>
+            <span>jj</span>
           </div>
         </div>
-      </div>
-    </Container>
-  );
-};
-
+        </div>
+        </Container>
+     );
+        
+}
+ 
 export default Task;
