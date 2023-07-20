@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import Sidebar from "../Components/SideBar"
+import Navbarmain from "../Components/Navbarmain";
 import { FaAngleDoubleRight } from "react-icons/fa";
 
 const Container = styled.div`
@@ -82,7 +84,6 @@ const Container = styled.div`
           }
          }
             }
-        }
    
 `
 
@@ -113,6 +114,8 @@ const Task = () => {
             <span>jjj</span>
             <span>jj</span>
           </div>
+        </div>
+        </div>
         </div>
         </div>
         </Container>
