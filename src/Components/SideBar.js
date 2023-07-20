@@ -18,6 +18,7 @@ const Container = styled.div`
   width: calc(100vw - 78.9vw);
   border-right: 1px solid #d8e1ef;
   .subs {
+    padding-top: 40px;
     font-size: 16px;
     display: flex;
     align-items: center;

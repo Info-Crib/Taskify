@@ -757,7 +757,7 @@ const Register = () => {
           await signInWithPopup(auth, googleProvider);
           Navigate("/dashboard");
         } catch (error) {
-          alert('error')
+          alert('error');
         }
     };
   

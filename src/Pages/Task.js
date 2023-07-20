@@ -1,26 +1,25 @@
 import styled from "styled-components";
-import Sidebar from "../Components/SideBar"
-import Navbarmain from "../Components/Navbarmain";
 import { FaAngleDoubleRight } from "react-icons/fa";
+import Navbarmain from "../Components/Navbarmain";
+import Sidebar from "../Components/SideBar";
 
 const Container = styled.div`
-  .boddy {
-    height: auto;
-    /* width: auto; */
-    background-color: blue;
+margin: 0px;
+height: auto;
+  .general{
     display: grid;
     grid-template-columns: 1fr 4fr;
-    overflow: hidden;
-    .b {
-      background-color: #F8F9FA;
-      padding: 10px;
-      overflow: scroll;
-      font-weight: 400;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
 
-      .navbarmin {
+    .main{
+      background-color: black;
+      height: auto;
+
+      .container{
+        background-color: azure;
+        height: 100px;
+        width: auto;
+        padding: 10px;
+        .navbarmin {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -40,7 +39,6 @@ const Container = styled.div`
           background-color: white;
           padding-inline: 20px;
           border-radius: 10px;
-
           p {
             font-size: 14px;
             font-weight: bold;
@@ -52,53 +50,53 @@ const Container = styled.div`
           }
         }
       }
-         .b{
-      background-color: #F8F9FA;
-      padding: 10px;
-      width: auto;
-      font-weight: 400;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
 
-    
+      }
+      .contents{
+        background-color: #ff8a00;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        row-gap: 10px;
+        column-gap: 10px;
+        padding: 10px;
 
-      .taskgen {
-        width: auto;
-        height: 80%;
-        background-color: red;
-       
-        padding: 20px;
-        display: flex;
-        justify-content: center;
-        flex-direction: row;
-        gap: 20px;
+        div.tasks{
+          background-color: #fff;
+          height: 70vh;
+          display: grid;
+          grid-template-rows: 1fr 9fr;
+          border: none;
+          border: 1px solid green;
+          border-radius: 10px;
 
-        span {
-          padding: 20px;
-          background-color: blue;
-          height: 600px;
-          width: 300px;
+          .head{
+            background-color: azure;
+            width: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
         }
       }
           }
          }
             }
+        }
    
 `
 
 
 
 const Task = () => {
-    return ( 
-        <Container>
-            <Navbarmain></Navbarmain>
-        <div className="general">
-            <Sidebar></Sidebar>
-            <div className="main">
-                <div className="container">
+  return (
+    <Container>
+      <Navbarmain></Navbarmain>
+      <div className="general">
+        <Sidebar></Sidebar>
+        <div className="main">
+          <div className="container">
           <div className="navbarmin">
-            <span>Profile</span>
+            <span>Tasks</span>
             <div className="sec">
               <p>Dahboard</p>
               <div className="icon">
@@ -107,15 +105,20 @@ const Task = () => {
               <p>Profile</p>
             </div>
           </div>
-                <div className="b">
-          <div className="taskgen">
-            <span>ggg</span>
-            <span>jjj</span >
-            <span>jjj</span>
-            <span>jj</span>
+            <div className="b">
+            </div>
           </div>
-        </div>
-        </div>
+          <div className="contents">
+            <div className="tasks">
+              <span className="head">
+                Head
+              </span>
+              <div className="body">
+                Body
+              </div>
+            </div>
+
+          </div>
         </div>
         </div>
         </Container>
