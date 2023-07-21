@@ -669,12 +669,12 @@ const Login = () => {
 
   console.log(auth?.currentUser?.email);
 
-  const signIn = async (e) => {
+  const signUp = async (e) => {
     e.preventDefault();
     toast.loading("Waiting...");
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      toast.success("Successfully created!");
+      toast.success("Login Successfull!");
       Navigate("/dashboard");
     } catch (error) {
       // alert("error");
@@ -747,7 +747,7 @@ const Login = () => {
                     <h5>Forgot Password?</h5>
                   </Link>
                   <button className="submit"
-                    onClick={signIn}
+                    onClick={signUp}
                   >Submit</button>
 
                   <h4>
