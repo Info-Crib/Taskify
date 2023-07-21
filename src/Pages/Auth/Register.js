@@ -725,6 +725,7 @@ const Container = styled.div`
 const Register = () => {
   const Navigate = useNavigate();
     const [isValid, setIsValid] = useState(false);
+    
     const [Error, setError] = useState("");
     const handleEmailChange = (e) => {
       const inputEmail = e.target.value;
@@ -738,17 +739,33 @@ const Register = () => {
 
     console.log(auth?.currentUser?.email);
 
+
+    const getFirebaseErrorCode = (error) => {
+      if (error.code) {
+        // Split the error message to extract the specific error code
+        const errorCode = error.code.split('/')[1];
+        return errorCode;
+      }
+      return 'Unknown error';
+    };
+  
     const signIn = async (e) =>{
       e.preventDefault()
-      toast.loading('Waiting...');
+    let toasting =   toast.loading('Waiting...');
         try {
           await createUserWithEmailAndPassword(auth, email, password);
-          toast.success('Successfully created!');
-          Navigate("/dashboard");
+        let toas =  toast.success('Successfully created!');
+         setTimeout(()=>{
+          toast.dismiss(toas)
+           Navigate("/dashboard");
+         },1000)
 
         } catch (error) {
           // alert("error");
-          toast.error('This is an error!');
+          toast.error(`${getFirebaseErrorCode(error)}`);
+        } finally{
+         toast.dismiss(toasting)
+        
         }
     };
 
@@ -767,6 +784,11 @@ const Register = () => {
         <Header></Header>
 
         <div className="general">
+        <Toaster
+                        position="top-center"
+                        reverseOrder={false}
+                        
+                    />
 
        
         <section className="sec1">
