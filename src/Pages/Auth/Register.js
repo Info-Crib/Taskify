@@ -738,7 +738,7 @@ const Register = () => {
 
     console.log(auth?.currentUser?.email);
 
-    const signIn = async (e) =>{
+    const signUp = async (e) =>{
       e.preventDefault()
       toast.loading('Waiting...');
         try {
@@ -806,11 +806,11 @@ const Register = () => {
                     required
                     noValidate
                   />
-                  {isValid ? (
+                  {/* {isValid ? (
                     <p className="valid-email">Valid email address!</p>
                   ) : (
                     <p className="invalid-email">Invalid email address!</p>
-                  )}
+                  )} */}
                 </span>
                   <span className="line">
                     <h4>Password  *</h4>
@@ -831,8 +831,8 @@ const Register = () => {
                     <label htmlFor="email"></label>
                     <input type="text" id="text" placeholder="Enter Company" required/>   
                   </span>
-                <span className="submit" onClick={signIn}>
-                  <button className="submit" on>Submit</button>
+                <span className="submit" onClick={signUp}>
+                  <button className="submit">Submit</button>
   
                  <h4>Already Have an Account? <Link to="/login">
                  <b>Sign In</b>

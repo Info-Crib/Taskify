@@ -3,9 +3,9 @@ import Sidebar from "../Components/SideBar";
 import Navbarmain from "../Components/Navbarmain";
 import { FaAngleDoubleRight } from "react-icons/fa";
 import { useState, useEffect } from "react";
-import { getAuth } from "firebase/auth";
-import { getDatabase, ref as databaseRef, set, onValue } from "firebase/database";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "../Config/firebase";
+import { ref, uploadBytes, list, getDownloadURL } from "firebase/storage";
+import { v4 } from "uuid";
 
 const Container = styled.div`
   .gen {
@@ -187,70 +187,27 @@ const Container = styled.div`
 `;
 
 const Profile = () => {
-      
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [imageUpload, setImageUpload] = useState(null);
+  const [imageUrl, setImageUrl] = useState([]);
 
-  // Event handler for file selection
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      // Use URL.createObjectURL() to generate a temporary URL for the selected image
-      const imageUrl = URL.createObjectURL(file);
-      setSelectedImage(imageUrl);
-
-      // Upload the image to Firebase Storage
-      const auth = getAuth();
-      const user = auth.currentUser;
-
-      if (user) {
-        const userId = user.uid;
-
-        const storage = getStorage();
-        const storageRef = ref(storage, `profile_pictures/${userId}/${file.name}`);
-        uploadBytes(storageRef, file)
-          .then(() => {
-            // Image uploaded successfully, now store the image URL in Realtime Database
-            const db = getDatabase();
-            const profileRef = databaseRef(db, `profiles/${userId}`);
-
-            // Set the profilePictureUrl field in Realtime Database
-            set(profileRef, { profilePictureUrl: imageUrl })
-              .then(() => {
-                console.log("Image URL saved in Realtime Database successfully!");
-              })
-              .catch((error) => {
-                console.error("Error saving image URL in Realtime Database:", error);
-              });
-          })
-          .catch((error) => {
-            // Handle any errors during image upload
-            console.error("Error uploading image:", error);
-          });
-      }
-    }
+  const imageUrlRef = ref(storage, "images/");
+  const handleSubmit = () => {
+    if (imageUpload == null) return;
+    const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
+    uploadBytes(imageRef, imageUpload).then(() => {
+      alert("image uploaded");
+    });
   };
 
-  // Fetch the user's profile picture URL from Realtime Database on component mount
   useEffect(() => {
-    const auth = getAuth();
-    const user = auth.currentUser;
-
-    if (user) {
-      const userId = user.uid;
-
-      const db = getDatabase();
-      const profileRef = databaseRef(db, `profiles/${userId}/profilePictureUrl`);
-
-      onValue(profileRef, (snapshot) => {
-        const profilePictureUrl = snapshot.val();
-        if (profilePictureUrl) {
-          setSelectedImage(profilePictureUrl);
-        }
+    list(imageUrlRef).then((response) => {
+      response.items.forEach((item) => {
+        getDownloadURL(item).then((url) => {
+          setImageUrl((prev) => [...prev, url]);
+        });
       });
-    }
+    });
   }, []);
-
-
 
   return (
     <Container>
@@ -274,18 +231,18 @@ const Profile = () => {
             </div>
             <div className="content">
               <span className="file-input">
-              <input type="file" accept="image/*" onChange={handleImageChange} />
-                {/* <button onClick={handleSubmit}>Submit</button> */}
-   
+                <input
+                  type="file"
+                  onChange={(event) => {
+                    setImageUpload(event.target.files[0]);
+                  }}
+                />
+                <button onClick={handleSubmit}>Submit</button>
+                {imageUrl.map((url) => {
+                  return <img src={url} />;
+                })}
+                ;
               </span>
-              {selectedImage ? (
-        <img
-          src={selectedImage}
-          alt="Selected Profile Picture"
-        />
-      ) : (
-        <p>No image selected</p>
-      )};
 
               <form>
                 <span className="real">
