@@ -806,7 +806,7 @@ const Register = () => {
             }
           }></FcGoogle>Continue With Google</button>
               <h4><hr />or <hr /></h4>
-              <form action="submit">
+              <form action="submit" onSubmit={signIn}>
                 <span className="line">
                   <h4>Name *</h4>
                   <label htmlFor="text"></label>
@@ -853,7 +853,7 @@ const Register = () => {
                     <label htmlFor="email"></label>
                     <input type="text" id="text" placeholder="Enter Company" required/>   
                   </span>
-                <span className="submit" onClick={signUp}>
+                <span className="submit" onClick={signIn}>
                   <button className="submit">Submit</button>
   
                  <h4>Already Have an Account? <Link to="/login">
