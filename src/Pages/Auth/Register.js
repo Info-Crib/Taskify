@@ -9,8 +9,9 @@ import { useNavigate } from "react-router-dom";
 import { auth, googleProvider } from "../../Config/firebase";
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import toast, { Toaster } from 'react-hot-toast';
-
-
+import { useUserAuth } from "../../context/Userauth";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../Config/firebase";
 const Container = styled.div`
  position: relative;
 
@@ -723,10 +724,14 @@ const Container = styled.div`
 
 
 const Register = () => {
+  const  {fullName, setFullName, Email, setEmail,password, setPassword} = useUserAuth();
+
   const Navigate = useNavigate();
     const [isValid, setIsValid] = useState(false);
     
     const [Error, setError] = useState("");
+
+
     const handleEmailChange = (e) => {
       const inputEmail = e.target.value;
       setEmail(inputEmail);
@@ -734,8 +739,7 @@ const Register = () => {
       setIsValid(emailRegex.test(inputEmail));
     };
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+  
 
     console.log(auth?.currentUser?.email);
 
@@ -753,7 +757,16 @@ const Register = () => {
       e.preventDefault()
     let toasting =   toast.loading('Waiting...');
         try {
-          await createUserWithEmailAndPassword(auth, email, password);
+      const   userCredential = await createUserWithEmailAndPassword(auth,Email, password);
+      
+      // After creating the account, store the username in Firestore or Realtime Database
+      
+      await setDoc(doc(db, "users", userCredential.user.uid), {
+        uid: userCredential.user.uid,
+        name: fullName, 
+        Email,
+      });
+   
         let toas =  toast.success('Successfully created!');
          setTimeout(()=>{
           toast.dismiss(toas)
@@ -810,7 +823,10 @@ const Register = () => {
                 <span className="line">
                   <h4>Name *</h4>
                   <label htmlFor="text"></label>
-                  <input type="text" id="name" placeholder="Enter Name" required />
+                  <input type="text" id="name" placeholder="Enter Name"  onChange={(e)=>{
+                      setFullName(e.target.value) ;
+
+                    }} required />
                 </span>
   
                 <span className="line">
@@ -820,7 +836,7 @@ const Register = () => {
                     type="email"
                     id="email"
                     placeholder="Enter Email"
-                    value={email}
+                    value={Email}
                     onChange={(e)=>{
                       setEmail(e.target.value) ;
 

@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { getAuth } from "firebase/auth";
 import { getDatabase, ref as databaseRef, set, onValue } from "firebase/database";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-
+import { useUserAuth } from "../context/Userauth";
 const Container = styled.div`
   .gen {
     display: grid;
@@ -187,7 +187,7 @@ const Container = styled.div`
 `;
 
 const Profile = () => {
-      
+      const {fullName, setFullName, Email, setEmail} =useUserAuth()
   const [selectedImage, setSelectedImage] = useState(null);
 
   // Event handler for file selection
@@ -279,10 +279,8 @@ const Profile = () => {
    
               </span>
               {selectedImage ? (
-        <img
-          src={selectedImage}
-          alt="Selected Profile Picture"
-        />
+      
+        <img src={selectedImage} alt="Selected Profile" />
       ) : (
         <p>No image selected</p>
       )};
@@ -291,12 +289,12 @@ const Profile = () => {
                 <span className="real">
                   <span>
                     <b>Name</b>
-                    <input type="text" placeholder="Enter name" />
+                    <input type="text" placeholder="Enter name" value={fullName} />
                   </span>
 
                   <span>
                     <b>Email</b>
-                    <input type="Enter email" placeholder="Email" />
+                    <input type="Enter email" placeholder="Email" value={Email} />
                   </span>
                 </span>
 

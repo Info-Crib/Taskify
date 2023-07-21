@@ -6,7 +6,7 @@ import {LiaProjectDiagramSolid} from "react-icons/lia"
 import Sidebar from "../Components/SideBar"
 import Navbarmain from "../Components/Navbarmain"
 import Mainfooter from "../Components/Mainfooter";
-
+import { useUserAuth } from "../context/Userauth";
 const Container = styled.div`
     .general{
         display: grid;
@@ -137,6 +137,7 @@ const Container = styled.div`
 
 
 const Dashboard = () => {
+const {fullName} = useUserAuth()
     return ( 
         <Container>
             <Navbarmain></Navbarmain>
@@ -146,7 +147,7 @@ const Dashboard = () => {
                 <div className="container">
                     
                 <div className="span">
-                     <h1>Welcome, Tom Hanks</h1>  
+                     <h1>Welcome, {fullName}</h1>  
                     <div className="projects">
 
                         <div>
