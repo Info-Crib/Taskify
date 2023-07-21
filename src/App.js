@@ -6,6 +6,7 @@ import About from "./Pages/About";
 import Project from "./Pages/Project";
 import Dashboard from "./Pages/Dashboard";
 import Profile from "./Pages/Profile";
+import Prof from "./Pages/Prof";
 import Task from "./Pages/Task";
 const App = () => {
   return ( 
@@ -19,6 +20,7 @@ const App = () => {
           <Route path= "/dashboard" element={ <Dashboard />} />
           <Route path= "/project" element={ <Project />} />
           <Route path= "/profile" element={ <Profile />} />
+          <Route path= "/prof" element={ <Prof />} />
           <Route path= "/task" element={ <Task />} />
 
         </Routes>
