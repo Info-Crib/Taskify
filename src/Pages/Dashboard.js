@@ -7,6 +7,7 @@ import Sidebar from "../Components/SideBar"
 import Navbarmain from "../Components/Navbarmain"
 import Mainfooter from "../Components/Mainfooter";
 
+
 const Container = styled.div`
     .general{
         display: grid;

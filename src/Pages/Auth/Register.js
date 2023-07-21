@@ -749,7 +749,7 @@ const Register = () => {
       return 'Unknown error';
     };
   
-    const signIn = async (e) =>{
+    const signUp = async (e) =>{
       e.preventDefault()
     let toasting =   toast.loading('Waiting...');
         try {
@@ -757,7 +757,7 @@ const Register = () => {
         let toas =  toast.success('Successfully created!');
          setTimeout(()=>{
           toast.dismiss(toas)
-           Navigate("/dashboard");
+           Navigate("/login");
          },1000)
 
         } catch (error) {
@@ -772,7 +772,7 @@ const Register = () => {
     const signInWithGoogle = async () => {
         try {
           await signInWithPopup(auth, googleProvider);
-          Navigate("/dashboard");
+          Navigate("/login");
         } catch (error) {
           alert('error');
         }
@@ -806,7 +806,7 @@ const Register = () => {
             }
           }></FcGoogle>Continue With Google</button>
               <h4><hr />or <hr /></h4>
-              <form action="submit" onSubmit={signIn}>
+              <form action="submit" onSubmit={signUp}>
                 <span className="line">
                   <h4>Name *</h4>
                   <label htmlFor="text"></label>
@@ -853,7 +853,7 @@ const Register = () => {
                     <label htmlFor="email"></label>
                     <input type="text" id="text" placeholder="Enter Company" required/>   
                   </span>
-                <span className="submit" onClick={signIn}>
+                <span className="submit" onClick={signUp}>
                   <button className="submit">Submit</button>
   
                  <h4>Already Have an Account? <Link to="/login">

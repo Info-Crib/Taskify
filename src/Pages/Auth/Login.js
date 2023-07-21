@@ -669,16 +669,30 @@ const Login = () => {
 
   console.log(auth?.currentUser?.email);
 
-  const signUp = async (e) => {
+  const getFirebaseErrorCode =(error)=>{
+  if(error.code){
+    const errorcode = error.code.split('/')[1];
+    return errorcode
+  }  
+  return "unknown error"
+}
+  const signIn = async (e) => {
     e.preventDefault();
-    toast.loading("Waiting...");
+   let loading =  toast.loading("logging in...");
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      toast.success("Login Successfull!");
-      Navigate("/dashboard");
+
+     let success =  toast.success(" loggged in successfully 🔥!");
+     setTimeout(()=>{
+        toast.dismiss(success);
+        Navigate("/dashboard");
+      },1000)
+
     } catch (error) {
       // alert("error");
-      toast.error("This is an error!");
+      toast.error(`${getFirebaseErrorCode(error)}`);
+    }finally{
+    toast.dismiss(loading)
     }
   };
 
@@ -687,6 +701,7 @@ const Login = () => {
       await signInWithPopup(auth, googleProvider);
       Navigate("/dashboard");
     } catch (error) {
+
       alert("error");
     }
   };
@@ -695,6 +710,11 @@ const Login = () => {
     <Container>
       <Header></Header>
       <div className="general">
+      <Toaster
+                        position="top-center"
+                        reverseOrder={false}
+                        
+                    />
         <section className="sec1">
           {/* <Intro></Intro> */}
           <div className="first">
@@ -747,7 +767,7 @@ const Login = () => {
                     <h5>Forgot Password?</h5>
                   </Link>
                   <button className="submit"
-                    onClick={signUp}
+                    onClick={signIn}
                   >Submit</button>
 
                   <h4>
