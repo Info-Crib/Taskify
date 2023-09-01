@@ -7,6 +7,7 @@ import Sidebar from "../Components/SideBar"
 import Navbarmain from "../Components/Navbarmain"
 import Mainfooter from "../Components/Mainfooter";
 import { useUserAuth } from "../context/Userauth";
+import Reduce from "./Auth/Reducer";
 const Container = styled.div`
     .general{
         display: grid;
@@ -137,9 +138,13 @@ const Container = styled.div`
 
 
 const Dashboard = () => {
-const {fullName} = useUserAuth()
+const {userInfo} = useUserAuth()
+const HandleClick =()=>{
+    console.log(userInfo)
+}
     return ( 
         <Container>
+            {/* <Reduce /> */}
             <Navbarmain></Navbarmain>
         <div className="general">
             <Sidebar></Sidebar>
@@ -147,7 +152,7 @@ const {fullName} = useUserAuth()
                 <div className="container">
                     
                 <div className="span">
-                     <h1>Welcome, {fullName}</h1>  
+                     <h1>Welcome, {userInfo.displayName}</h1>  
                     <div className="projects">
 
                         <div>
@@ -166,7 +171,7 @@ const {fullName} = useUserAuth()
                         <div>
                             <h2>Personal project</h2>
                             <span>
-                            <button>
+                            <button onClick={HandleClick}>
                                 Message Board
                             </button>
                             <button id="two">Tasks</button>

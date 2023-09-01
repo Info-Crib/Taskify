@@ -4,11 +4,18 @@ import Footer from "../../Components/Footer";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from 'react-hot-toast';
-import { auth, googleProvider } from "../../Config/firebase";
+import { auth, db, googleProvider } from "../../Config/firebase";
+import { updateProfile } from "firebase/auth";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { useUserAuth } from "../../context/Userauth";
+import { doc, getDoc } from "firebase/firestore";
+import Cookies from "universal-cookie";
+import { setDoc } from "firebase/firestore";
+
+
 const Container = styled.div`
   position: relative;
   width: auto;
@@ -663,11 +670,15 @@ const Container = styled.div`
 `;
 
 const Login = () => {
+  const  {currentUser, setFullName, Email, setEmail,password, setPassword,displayName} = useUserAuth();
   const Navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  console.log(auth?.currentUser?.email);
+  const [userData, setUserData] = useState(null);
+
+
+
+
+
 
   const getFirebaseErrorCode =(error)=>{
   if(error.code){
@@ -679,10 +690,35 @@ const Login = () => {
   const signIn = async (e) => {
     e.preventDefault();
    let loading =  toast.loading("logging in...");
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
 
+    try {
+    
+    await signInWithEmailAndPassword(auth, Email, password);
+
+
+   
+
+      console.log(currentUser);
+      const userDocRef = doc(db, "users", currentUser.uid);
+      const userDocSnapshot = await getDoc(userDocRef);
+      setUserData(userData)
+  
+      
+      // Check if the user data exists in Firestore
+      if (userDocSnapshot.exists()) {
+        const userData = userDocSnapshot.data();
+  
+        // Assuming that the username is stored as "username" in Firestore
+        const username = userData.displayName;
+  
+        // Set the fetched username into your application's state
+        setFullName(username);
+      }
+
+      console.log(Email);
      let success =  toast.success(" loggged in successfully 🔥!");
+   
+     console.log("successfully log in")
      setTimeout(()=>{
         toast.dismiss(success);
         Navigate("/dashboard");
@@ -691,6 +727,7 @@ const Login = () => {
     } catch (error) {
       // alert("error");
       toast.error(`${getFirebaseErrorCode(error)}`);
+      console.log(error)
     }finally{
     toast.dismiss(loading)
     }
@@ -698,14 +735,23 @@ const Login = () => {
 
   const signInWithGoogle = async () => {
     try {
-      await signInWithPopup(auth, googleProvider);
+     const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      await updateProfile(user, { displayName, });
+      await setDoc(doc(db, 'users', user.uid), {
+          displayName: displayName,
+          email: user.email
+      });
       Navigate("/dashboard");
     } catch (error) {
 
-      alert("error");
+      toast.error(`${getFirebaseErrorCode(error)}`);
+      console.log(error)
     }
   };
 
+  
+  
   return (
     <Container>
       <Header></Header>
@@ -743,7 +789,7 @@ const Login = () => {
                   type="text" 
                   id="email" 
                   placeholder="Enter Email"
-                  value={email}
+                  value={Email}
                   onChange={(e)=> {
                     setEmail(e.target.value);
                   }}

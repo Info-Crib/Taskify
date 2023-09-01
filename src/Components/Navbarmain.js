@@ -6,7 +6,7 @@ import {BiSolidDownArrow} from "react-icons/bi"
 
 const Container = styled.div`
   position: sticky;
-  z-index: 100;
+  z-index: 5;
         top: 0;
        nav{
       background-color: #F8F9FA;

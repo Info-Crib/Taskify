@@ -187,7 +187,7 @@ const Container = styled.div`
 `;
 
 const Profile = () => {
-      const {fullName, setFullName, Email, setEmail} =useUserAuth()
+      const {userInfo} =useUserAuth()
   const [selectedImage, setSelectedImage] = useState(null);
 
   // Event handler for file selection
@@ -289,12 +289,12 @@ const Profile = () => {
                 <span className="real">
                   <span>
                     <b>Name</b>
-                    <input type="text" placeholder="Enter name" value={fullName} />
+                    <input type="text" placeholder="Enter name" value={userInfo.displayName} />
                   </span>
 
                   <span>
                     <b>Email</b>
-                    <input type="Enter email" placeholder="Email" value={Email} />
+                    <input type="Enter email" placeholder="Email" value={userInfo.Email} />
                   </span>
                 </span>
 

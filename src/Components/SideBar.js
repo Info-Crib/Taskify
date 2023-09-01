@@ -164,12 +164,26 @@ const Container = styled.div`
 const Sidebar = () => {
 
   const Navigate = useNavigate();
+  
+
+  const getFirebaseErrorCode = (error) =>{
+   if(error){
+     const errorcode = error.code.split("/")[1];
+     return errorcode
+   }
+   return "Unknown error"
+  }
   const logOut = async () => {
     try {
+      let success = toast.success('log out successfully 😭');
+
+   
       await signOut(auth);
-      Navigate("/login");
+      toast.dismiss(success);
+     Navigate("/login");
+
     } catch (error) {
-      alert("error");
+      toast.error(`${getFirebaseErrorCode(error)}`);
     }
   };
 
@@ -198,12 +212,13 @@ const Sidebar = () => {
 
   return (
     <Container>
+     
+      <div className="subs">
       <Toaster
                         position="top-center"
                         reverseOrder={false}
                         
                     />
-      <div className="subs">
         <ul>
           <Link to="/dashboard">
             <li>

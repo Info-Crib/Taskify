@@ -8,7 +8,9 @@ import Dashboard from "./Pages/Dashboard";
 import Profile from "./Pages/Profile";
 import Prof from "./Pages/Prof";
 import Task from "./Pages/Task";
+import ProtectedRoute from "./proctedRoute/ProtectedRoute";
 const App = () => {
+
   return ( 
     <>
       <Router>
@@ -17,11 +19,19 @@ const App = () => {
           <Route path= "/login" element={ <Login />} />
           <Route path= "/register" element={ <Register />} />
           <Route path= "/about" element={ <About />} />
-          <Route path= "/dashboard" element={ <Dashboard />} />
-          <Route path= "/project" element={ <Project />} />
-          <Route path= "/profile" element={ <Profile />} />
-          <Route path= "/prof" element={ <Prof />} />
-          <Route path= "/task" element={ <Task />} />
+          <Route path= "/dashboard" element={ 
+            <Dashboard />
+       } />
+          <Route path= "/project" element={ 
+            <Project />
+          } />
+          <Route path= "/profile" element={ <Profile /> } />
+          <Route path= "/prof" element={
+            <Prof />
+          } />
+          <Route path= "/task" element={
+            <Task />
+           } />
 
         </Routes>
       </Router>

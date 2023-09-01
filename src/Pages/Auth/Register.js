@@ -4,10 +4,10 @@ import styled from "styled-components";
 import Intro from "../../Components/Intro";
 import { Link } from "react-router-dom";
 import {FcGoogle} from "react-icons/fc"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, googleProvider } from "../../Config/firebase";
-import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 import toast, { Toaster } from 'react-hot-toast';
 import { useUserAuth } from "../../context/Userauth";
 import { doc, setDoc } from "firebase/firestore";
@@ -724,7 +724,7 @@ const Container = styled.div`
 
 
 const Register = () => {
-  const  {fullName, setFullName, Email, setEmail,password, setPassword} = useUserAuth();
+  const  {displayName, setFullName, Email, setEmail,password, setPassword,company, setCompany,currentUser,Userinfo,updateUserInfo} = useUserAuth();
 
   const Navigate = useNavigate();
     const [isValid, setIsValid] = useState(false);
@@ -732,13 +732,14 @@ const Register = () => {
     const [Error, setError] = useState("");
 
 
-    const handleEmailChange = (e) => {
-      const inputEmail = e.target.value;
-      setEmail(inputEmail);
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      setIsValid(emailRegex.test(inputEmail));
-    };
+    // const handleEmailChange = (e) => {
+    //   const inputEmail = e.target.value;
+    //   setEmail(inputEmail);
+    //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    //   setIsValid(emailRegex.test(inputEmail));
+    // };
 
+  
   
 
     console.log(auth?.currentUser?.email);
@@ -752,42 +753,89 @@ const Register = () => {
       }
       return 'Unknown error';
     };
+
+  
   
     const signUp = async (e) =>{
       e.preventDefault()
-    let toasting =   toast.loading('Waiting...');
-        try {
+      let toasting =   toast.loading('creating account...');
+      try {
       const   userCredential = await createUserWithEmailAndPassword(auth,Email, password);
-      
+      console.log(currentUser)
+      const user = userCredential.user;
+
+      // After creating the account, store the user's additional information in Firestore
+      const userData = {
+        uid: user.uid,
+        displayName,
+        Email,
+        company,
+      };
+
+      updateUserInfo(userData);
+      console.log(Userinfo)
       // After creating the account, store the username in Firestore or Realtime Database
       
-      await setDoc(doc(db, "users", userCredential.user.uid), {
-        uid: userCredential.user.uid,
-        name: fullName, 
-        Email,
-      });
    
-        let toas =  toast.success('Successfully created!');
-         setTimeout(()=>{
-          toast.dismiss(toas)
-           Navigate("/login");
-         },1000)
+      // await setDoc(doc(db, "cities", "LA"), {
+      //   name: "Los Angeles",
+      //   state: "CA",
+      //   country: "USA"
+      // });
+        await setDoc(doc(db, "users", userCredential.user.uid), {
+          uid: userCredential.user.uid,
+          displayName, 
+         Email,
+         company,
+        });
+        
+         if(userCredential){
+
+           let toas =  toast.success('Successfully created!',{   position: "top-center", duration: 4000});
+           toast.dismiss(toasting)
+           setTimeout(()=>{
+             toast.dismiss(toas)
+             Navigate("/login");
+               
+
+             },2000)
+         }else{
+        
+         }
+      
 
         } catch (error) {
           // alert("error");
-          toast.error(`${getFirebaseErrorCode(error)}`);
-        } finally{
-         toast.dismiss(toasting)
-        
+          toast.error(`${getFirebaseErrorCode(error)}`,{   position: "top-center", duration: 4000});
+          toast.dismiss(toasting)
+          console.log(error)
         }
     };
 
     const signInWithGoogle = async () => {
         try {
-          await signInWithPopup(auth, googleProvider);
+        const userCredential =    await signInWithPopup(auth, googleProvider);
+        const user = userCredential.user;
+
+        // After creating the account, store the user's additional information in Firestore
+        const userData = {
+          uid: user.uid,
+          displayName,
+          Email,
+          company,
+        };
+  
+        updateUserInfo(userData);
+          await setDoc(doc(db, "users", userCredential.user.uid), {
+            uid: userCredential.user.uid,
+            displayName, 
+            Email,
+            company: "",
+          });
           Navigate("/login");
         } catch (error) {
-          alert('error');
+          toast.error(`${getFirebaseErrorCode(error)}`,{   position: "top-center", duration: 4000});
+          console.log(error)
         }
     };
   
@@ -821,7 +869,7 @@ const Register = () => {
               <h4><hr />or <hr /></h4>
               <form action="submit" onSubmit={signUp}>
                 <span className="line">
-                  <h4>Name *</h4>
+                  <h4>FullName *</h4>
                   <label htmlFor="text"></label>
                   <input type="text" id="name" placeholder="Enter Name"  onChange={(e)=>{
                       setFullName(e.target.value) ;
@@ -867,7 +915,7 @@ const Register = () => {
                 <span className="line">
                     <h4>Company Name  *</h4>
                     <label htmlFor="email"></label>
-                    <input type="text" id="text" placeholder="Enter Company" required/>   
+                    <input type="text" id="text" placeholder="Enter Company" required onChange={(e)=>setCompany(e.target.value)}/>   
                   </span>
                 <span className="submit" onClick={signUp}>
                   <button className="submit">Submit</button>
