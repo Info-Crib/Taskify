@@ -820,19 +820,19 @@ const Register = () => {
         // After creating the account, store the user's additional information in Firestore
         const userData = {
           uid: user.uid,
-          displayName,
-          Email,
-          company,
+          displayName: user.displayName,
+         Email:  user.email,
+          company: "",
         };
   
         updateUserInfo(userData);
           await setDoc(doc(db, "users", userCredential.user.uid), {
             uid: userCredential.user.uid,
-            displayName, 
-            Email,
+            displayName : user.displayName, 
+           Email:  user.email,
             company: "",
           });
-          Navigate("/login");
+          Navigate("/dashboard");
         } catch (error) {
           toast.error(`${getFirebaseErrorCode(error)}`,{   position: "top-center", duration: 4000});
           console.log(error)
