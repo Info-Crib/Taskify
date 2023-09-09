@@ -679,57 +679,62 @@ const Login = () => {
 
 
 
-
-  const getFirebaseErrorCode =(error)=>{
-  if(error.code){
-    const errorcode = error.code.split('/')[1];
-    return errorcode
-  }  
-  return "unknown error"
-}
+console.log(currentUser);
+  const getFirebaseErrorCode = (error) => {
+    if (error.code) {
+      // Split the error message to extract the specific error code
+      const errorCode = error.code.split('/')[1];
+      return errorCode;
+    }
+    return 'Unknown error';
+  };
   const signIn = async (e) => {
     e.preventDefault();
    let loading =  toast.loading("logging in...");
 
     try {
     
-    await signInWithEmailAndPassword(auth, Email, password);
+   const userCredential=  await signInWithEmailAndPassword(auth, Email, password);
 
 
-   
-
-      console.log(currentUser);
-      const userDocRef = doc(db, "users", currentUser.uid);
-      const userDocSnapshot = await getDoc(userDocRef);
-      setUserData(userData)
+      if(userCredential){
+        console.log(currentUser);
+        const userDocRef = doc(db, "users", auth.currentUser.uid);
+        const userDocSnapshot = await getDoc(userDocRef);
+        setUserData(userData)
+    
+        
+        // Check if the user data exists in Firestore
+        if (userDocSnapshot.exists()) {
+          const userData = userDocSnapshot.data();
+    
+          // Assuming that the username is stored as "username" in Firestore
+          const username = userData.displayName;
+    
+          // Set the fetched username into your application's state
+          setFullName(username);
+        }
   
-      
-      // Check if the user data exists in Firestore
-      if (userDocSnapshot.exists()) {
-        const userData = userDocSnapshot.data();
-  
-        // Assuming that the username is stored as "username" in Firestore
-        const username = userData.displayName;
-  
-        // Set the fetched username into your application's state
-        setFullName(username);
+        console.log(Email);
+       let success =  toast.success(" loggged in successfully 🔥!");
+     
+       console.log("successfully log in")
+       setTimeout(()=>{
+          toast.dismiss(success);
+          Navigate("/dashboard");
+          toast.dismiss(loading)
+        },1000)
       }
 
-      console.log(Email);
-     let success =  toast.success(" loggged in successfully 🔥!");
    
-     console.log("successfully log in")
-     setTimeout(()=>{
-        toast.dismiss(success);
-        Navigate("/dashboard");
-      },1000)
 
     } catch (error) {
       // alert("error");
       toast.error(`${getFirebaseErrorCode(error)}`);
       console.log(error)
-    }finally{
-    toast.dismiss(loading)
+      toast.dismiss(loading)
+    } finally{
+      toast.dismiss(loading); 
     }
   };
 

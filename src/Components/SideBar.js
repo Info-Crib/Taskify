@@ -164,6 +164,7 @@ const Container = styled.div`
 const Sidebar = () => {
 
   const Navigate = useNavigate();
+  const [load,setLoad]= useState(false)
   
 
   const getFirebaseErrorCode = (error) =>{
@@ -174,16 +175,28 @@ const Sidebar = () => {
    return "Unknown error"
   }
   const logOut = async () => {
+    setLoad(true)
+    let Loadout = toast.loading('logging out...')
     try {
-      let success = toast.success('log out successfully 😭');
 
-   
-      await signOut(auth);
-      toast.dismiss(success);
-     Navigate("/login");
+      let success = toast.success('log out successfully 😭');
+    
+      
+      const Logout=    await signOut(auth);
+      if(Logout){
+
+        toast.dismiss(success);
+        setLoad(false)
+        setTimeout(() => {
+          Navigate("/login");
+        }, 2000);
+      }
 
     } catch (error) {
       toast.error(`${getFirebaseErrorCode(error)}`);
+      toast.dismiss(Loadout)
+    }finally{
+      toast.dismiss(Loadout)
     }
   };
 
@@ -214,6 +227,7 @@ const Sidebar = () => {
     <Container>
      
       <div className="subs">
+        {load && <h1>logging out...</h1>}
       <Toaster
                         position="top-center"
                         reverseOrder={false}

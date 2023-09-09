@@ -10,34 +10,55 @@ import Prof from "./Pages/Prof";
 import Task from "./Pages/Task";
 import ProtectedRoute from "./proctedRoute/ProtectedRoute";
 const App = () => {
-
-  return ( 
+  return (
     <>
       <Router>
         <Routes>
-          <Route path= "/" element={ <Home />} />
-          <Route path= "/login" element={ <Login />} />
-          <Route path= "/register" element={ <Register />} />
-          <Route path= "/about" element={ <About />} />
-          <Route path= "/dashboard" element={ 
-            <Dashboard />
-       } />
-          <Route path= "/project" element={ 
-            <Project />
-          } />
-          <Route path= "/profile" element={ <Profile /> } />
-          <Route path= "/prof" element={
-            <Prof />
-          } />
-          <Route path= "/task" element={
-            <Task />
-           } />
-
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/dashboard" element={
+          <ProtectedRoute>
+             <Dashboard />
+          </ProtectedRoute>
+         } />
+          <Route
+            path="/project"
+            element={
+              <ProtectedRoute>
+                <Project />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/prof"
+            element={
+              <ProtectedRoute>
+                <Prof />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/task"
+            element={
+              <ProtectedRoute>
+                <Task />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </Router>
-    
     </>
-   );
-}
- 
+  );
+};
+
 export default App;

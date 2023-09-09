@@ -138,10 +138,11 @@ const Container = styled.div`
 
 
 const Dashboard = () => {
-const {userInfo} = useUserAuth()
+const {userInfo, currentUser} = useUserAuth()
 const HandleClick =()=>{
-    console.log(userInfo)
 }
+console.log(currentUser)
+
     return ( 
         <Container>
             {/* <Reduce /> */}
